@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Montagem de Horário - Direito</title>
+    
+    <!-- Bibliotecas externas: Fonte Inter, SheetJS (Excel) e Lucide Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        :root {
+            /* Paleta de Cores Elegantes & Pastéis */
+            --bg-page: #f8fafc;
+            --bg-panel: #ffffff;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            
+            /* Tons Pastéis para Botões e Chips */
+            --pastel-mint: #d1fae5;
+            --text-mint: #065f46;
+            
+            --pastel-blue: #dbeafe;
+            --text-blue: #1e3a8a;
+            
+            --pastel-yellow: #fef08a;
+            --text-yellow: #854d0e;
+            
+            --pastel-lilac: #ede9fe;
+            --text-lilac: #5b21b6;
+            
+            --pastel-rose: #ffe4e6;
+            --text-rose: #9f1239;
+            
+            --pastel-gray: #f1f5f9;
+            --text-gray: #475569;
+            
+            --chip-discipline: #e0f2fe;
+            --chip-discipline-border: #bae6fd;
+            --chip-discipline-text: #0369a1;
+
+            --chip-teacher: #dcfce7;
+            --chip-teacher-border: #bbf7d0;
+            --chip-teacher-text: #166534;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        h1, h2 {
+            margin-top: 0;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+        
+        h2 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            border-bottom: 2px solid var(--pastel-gray);
+            padding-bottom: 8px;
+        }
+
+        .header-title {
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .controls-top {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .divider {
+            height: 24px;
+            width: 1px;
+            background-color: #cbd5e1;
+            margin: 0 4px;
+        }
+
+        .filter-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border: 1px solid transparent;
+            background: var(--bg-panel);
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-gray);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        /* Cores Específicas dos Botões */
+        .btn-tab { border: 1px solid var(--border-color); }
+        .btn-tab.active { background: var(--text-main); color: white; border-color: var(--text-main); }
+        
+        .btn-auto { background: var(--pastel-mint); color: var(--text-mint); }
+        .btn-export { background: var(--pastel-blue); color: var(--text-blue); }
+        .btn-download { background: var(--pastel-yellow); color: var(--text-yellow); }
+        .btn-upload { background: var(--pastel-lilac); color: var(--text-lilac); }
+        .btn-clear { background: var(--pastel-rose); color: var(--text-rose); }
+
+        .filter-btn i { width: 16px; height: 16px; }
+
+        .app-container {
+            display: flex;
+            flex: 1;
+            gap: 24px;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: var(--bg-panel);
+            padding: 20px;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        }
+
+        .main-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            background: var(--bg-panel);
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        }
+
+        .grid-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .grid-table th, .grid-table td {
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px;
+            vertical-align: top;
+        }
+        
+        .grid-table th:last-child, .grid-table td:last-child { border-right: none; }
+        .grid-table tr:last-child td { border-bottom: none; }
+
+        .grid-table th {
+            background: var(--pastel-gray);
+            text-align: center;
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+
+        .grid-table td:first-child {
+            background: #fdfdfd;
+            font-weight: 600;
+            text-align: center;
+            vertical-align: middle;
+            width: 100px;
+            color: var(--text-gray);
+        }
+
+        .schedule-cell {
+            min-height: 100px;
+            min-width: 120px;
+            background: #ffffff;
+            transition: all 0.2s;
+        }
+
+        .schedule-cell.dragover {
+            background: var(--pastel-mint);
+            box-shadow: inset 0 0 0 2px #34d399;
+        }
+
+        .draggable-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border-color);
+            cursor: grab;
+            font-size: 13px;
+            border-radius: 8px;
+            background-color: #fff;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .draggable-item i { width: 14px; height: 14px; color: var(--text-muted); flex-shrink: 0; }
+
+        .draggable-item:active { cursor: grabbing; }
+
+        .draggable-item.discipline { border-left: 4px solid #38bdf8; }
+        .draggable-item.teacher { border-left: 4px solid #4ade80; }
+
+        .draggable-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transform: translateY(-2px);
+        }
+
+        .period-group {
+            font-weight: 600;
+            font-size: 13px;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            margin: 4px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            word-break: break-word;
+            max-width: 90%;
+            cursor: grab;
+            line-height: 1.4;
+        }
+
+        .chip:active { cursor: grabbing; }
+
+        .chip.discipline {
+            background: var(--chip-discipline);
+            color: var(--chip-discipline-text);
+            border: 1px solid var(--chip-discipline-border);
+        }
+
+        .chip.teacher {
+            background: var(--chip-teacher);
+            color: var(--chip-teacher-text);
+            border: 1px solid var(--chip-teacher-border);
+        }
+
+        .chip-close {
+            margin-left: 6px;
+            cursor: pointer;
+            color: inherit;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .chip-close:hover { opacity: 1; }
+        .chip-close svg { width: 14px; height: 14px; }
+
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .summary-table th, .summary-table td {
+            border-bottom: 1px solid var(--border-color);
+            padding: 14px;
+            text-align: left;
+            font-size: 14px;
+        }
+        
+        .summary-table tr:last-child td { border-bottom: none; }
+
+        .summary-table th {
+            background: var(--pastel-gray);
+            font-weight: 500;
+            color: var(--text-gray);
+        }
+
+        .instructions {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .auto-save-msg {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 10px;
+            font-size: 13px;
+            color: var(--text-mint);
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.5s;
+            background: var(--pastel-mint);
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+        
+        .auto-save-msg svg { width: 14px; height: 14px; }
+    </style>
+</head>
+<body>
+
+    <h1 class="header-title">Montagem de Horário Interativa - Direito</h1>
+    
+    <div class="controls-top">
+        <button id="btn-all" class="filter-btn btn-tab active" onclick="filterSemester('all')">Todos os Períodos</button>
+        <button id="btn-impar" class="filter-btn btn-tab" onclick="filterSemester('impar')">Semestre Ímpar (1º ao 9º)</button>
+        <button id="btn-par" class="filter-btn btn-tab" onclick="filterSemester('par')">Semestre Par (2º ao 10º)</button>
+        
+        <div class="divider"></div>
+        
+        <button class="filter-btn btn-auto" onclick="importDisciplines()" title="Lança as disciplinas nas colunas livres">
+            <i data-lucide="wand-2"></i> Auto-Completar
+        </button>
+        <button class="filter-btn btn-export" onclick="exportToExcel()">
+            <i data-lucide="file-spreadsheet"></i> Exportar XLSX
+        </button>
+        
+        <div class="divider"></div>
+
+        <button class="filter-btn btn-download" onclick="exportProgress()" title="Baixa o seu progresso num arquivo pequeno (.json)">
+            <i data-lucide="download"></i> Baixar Progresso
+        </button>
+        <button class="filter-btn btn-upload" onclick="importProgress()" title="Carrega um arquivo .json salvo anteriormente">
+            <i data-lucide="upload"></i> Carregar Progresso
+        </button>
+        <button class="filter-btn btn-clear" onclick="clearMemory()">
+            <i data-lucide="trash-2"></i> Limpar Tudo
+        </button>
+        
+        <span id="save-msg" class="auto-save-msg">
+            <i data-lucide="check-circle-2"></i> Salvo localmente
+        </span>
+    </div>
+
+    <div class="app-container">
+        <!-- Disciplinas -->
+        <div class="sidebar" id="disciplines-sidebar">
+            <h2>Disciplinas</h2>
+            <div class="instructions"><i data-lucide="info"></i> Arraste para o quadro</div>
+            <div id="disciplines-container"></div>
+        </div>
+
+        <!-- Quadro Principal -->
+        <div class="main-panel">
+            <h2>Quadro de Horários</h2>
+            <table class="grid-table">
+                <thead>
+                    <tr>
+                        <th>Período</th>
+                        <th>2ª feira</th>
+                        <th>3ª feira</th>
+                        <th>4ª feira</th>
+                        <th>5ª feira</th>
+                        <th>6ª feira</th>
+                        <th>Sábado</th>
+                    </tr>
+                </thead>
+                <tbody id="grid-body">
+                    <!-- Gerado dinamicamente -->
+                </tbody>
+            </table>
+
+            <h2 style="margin-top: 20px;">Resumo por Docente</h2>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Docente</th>
+                        <th>Disciplinas Alocadas</th>
+                        <th>Carga Horária Total</th>
+                    </tr>
+                </thead>
+                <tbody id="summary-body">
+                    <tr><td colspan="3" style="text-align:center; color: var(--text-muted);">Arraste disciplinas e professores para o quadro para gerar o resumo.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Professores -->
+        <div class="sidebar" id="teachers-sidebar">
+            <h2>Docentes</h2>
+            <div class="instructions"><i data-lucide="info"></i> Arraste para o quadro</div>
+            <div id="teachers-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // Inicializar ícones Lucide
+        lucide.createIcons();
+
+        // SVG ícone de fechar (usado em elementos gerados dinamicamente via JS)
+        const closeIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
+
+        // Lista de Disciplinas (10 períodos de Direito)
+        const disciplinas =
