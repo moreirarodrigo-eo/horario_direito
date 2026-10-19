@@ -429,4 +429,553 @@
         const closeIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
 
         // Lista de Disciplinas (10 períodos de Direito)
-        const disciplinas =
+        const disciplinas = [
+            { p: 1, nome: "Filosofia Geral e Jurídica", ch: 60 },
+            { p: 1, nome: "Redação e Linguagem Jurídica", ch: 80 },
+            { p: 1, nome: "Introdução à Ciência Política", ch: 60 },
+            { p: 1, nome: "Introdução ao Estudo do Direito - História do Direito", ch: 80 },
+            { p: 1, nome: "Língua Brasileira de Sinais - Libras", ch: 40 },
+            { p: 1, nome: "Ética Geral e Profissional Jurídica", ch: 40 },
+            { p: 1, nome: "ACEX I - Atividades Curriculares de Extensão", ch: 40 },
+
+            { p: 2, nome: "Psicologia Geral e Jurídica", ch: 60 },
+            { p: 2, nome: "Metodologia da Pesquisa Jurídica", ch: 80 },
+            { p: 2, nome: "Direito Civil I - Parte Geral", ch: 80 },
+            { p: 2, nome: "Economia", ch: 60 },
+            { p: 2, nome: "Sociologia e Antropologia Geral e Jurídica", ch: 60 },
+            { p: 2, nome: "Direitos das Rel. Étnico-Raciais: Cult. Afro-Brasileira, Africana e Indígena", ch: 40 },
+            { p: 2, nome: "ACEX II - Atividades Curriculares de Extensão", ch: 40 },
+
+            { p: 3, nome: "Direito Constitucional I", ch: 80 },
+            { p: 3, nome: "Direito Penal I", ch: 80 },
+            { p: 3, nome: "Hermenêutica Jurídica", ch: 40 },
+            { p: 3, nome: "Direito Civil II - Obrigações", ch: 80 },
+            { p: 3, nome: "Direitos Humanos e de Minorias", ch: 80 },
+            { p: 3, nome: "Direito Cibernético e Digital", ch: 60 },
+            { p: 3, nome: "ACEX III - Atividades Curriculares de Extensão", ch: 40 },
+
+            { p: 4, nome: "Teoria Geral do Processo", ch: 60 },
+            { p: 4, nome: "Direito Administrativo I", ch: 60 },
+            { p: 4, nome: "Direito Constitucional II", ch: 80 },
+            { p: 4, nome: "Direito Penal II", ch: 80 },
+            { p: 4, nome: "Direito Civil III - Teoria Geral dos Contratos", ch: 80 },
+            { p: 4, nome: "ACEX IV - Atividades Curriculares de Extensão", ch: 40 },
+
+            { p: 5, nome: "Direito Administrativo II", ch: 60 },
+            { p: 5, nome: "Direito Penal III", ch: 80 },
+            { p: 5, nome: "Direito Civil IV - Coisas", ch: 60 },
+            { p: 5, nome: "Direito Processual Civil I", ch: 80 },
+            { p: 5, nome: "Direito Processual Penal I", ch: 80 },
+            { p: 5, nome: "ACEX V - Atividades Curriculares de Extensão", ch: 40 },
+
+            { p: 6, nome: "Direito Empresarial I", ch: 60 },
+            { p: 6, nome: "Direito Penal IV", ch: 60 },
+            { p: 6, nome: "Direito Civil V - Família", ch: 80 },
+            { p: 6, nome: "Direito Processual Civil II", ch: 60 },
+            { p: 6, nome: "Direito Processual Penal II", ch: 60 },
+            { p: 6, nome: "Estágio Supervisionado I - Prática Civil I", ch: 60 },
+            { p: 6, nome: "ACEX VI - Atividades Curriculares de Extensão", ch: 40 },
+
+            { p: 7, nome: "Direito Civil VI - Sucessões", ch: 60 },
+            { p: 7, nome: "Direito Processual Civil III", ch: 60 },
+            { p: 7, nome: "Direito Processual Penal III", ch: 60 },
+            { p: 7, nome: "Direito Empresarial II", ch: 60 },
+            { p: 7, nome: "Optativa I", ch: 40 },
+            { p: 7, nome: "Estágio Supervisionado II - Prática Civil II", ch: 60 },
+            { p: 7, nome: "ACEX VII - Atividades Curriculares de Extensão", ch: 40 },
+            { p: 7, nome: "ACEX VIII - Prev. e comb. a incêndio e a desastres", ch: 20 },
+
+            { p: 8, nome: "Direito Civil VII - Responsabilidade Civil", ch: 80 },
+            { p: 8, nome: "Direito Processual Civil IV", ch: 40 },
+            { p: 8, nome: "Direito Processual Penal IV", ch: 40 },
+            { p: 8, nome: "Direito do Trabalho", ch: 80 },
+            { p: 8, nome: "Estágio Supervisionado III - Prática Civil III", ch: 40 },
+            { p: 8, nome: "Estágio Supervisionado IV - Prática Penal I", ch: 40 },
+            { p: 8, nome: "Optativa II", ch: 40 },
+            { p: 8, nome: "ACEX IX - Atividades Curriculares de Extensão", ch: 40 },
+
+            { p: 9, nome: "Direito Tributário e Financeiro", ch: 60 },
+            { p: 9, nome: "Direito Processual do Trabalho", ch: 80 },
+            { p: 9, nome: "Direito Ambiental", ch: 60 },
+            { p: 9, nome: "Direito do Consumidor e Processo Coletivo", ch: 40 },
+            { p: 9, nome: "Estudo Jurídico I - TCC - Projeto", ch: 40 },
+            { p: 9, nome: "Estágio Supervisionado V - Prática Penal II", ch: 40 },
+            { p: 9, nome: "Estágio Supervisionado VI - Prática Penal III", ch: 40 },
+            { p: 9, nome: "ACEX X - Atividades Curriculares de Extensão", ch: 40 },
+
+            { p: 10, nome: "Direito Internacional Público e Privado", ch: 40 },
+            { p: 10, nome: "Direito Previdenciário e Processo Previdenciário", ch: 40 },
+            { p: 10, nome: "Direito Agrário", ch: 60 },
+            { p: 10, nome: "Comp. Consensual de Conflitos: mediação e arbitragem", ch: 40 },
+            { p: 10, nome: "Optativa III", ch: 40 },
+            { p: 10, nome: "Estágio Supervisionado VII - Prática Trabalhista", ch: 40 },
+            { p: 10, nome: "ACEX XI - Atividades Curriculares de Extensão", ch: 40 },
+            { p: 10, nome: "Trabalho de Conclusão de Curso - TCC", ch: 40 },
+            { p: 10, nome: "Atividades Complementares", ch: 100 }
+        ];
+
+        const professores = [
+            "Prof. Dr. Rodrigo Moreira",
+            "Prof. Alessandro Souza",
+            "Profª. Fátima Frasson",
+            "Prof. Dr. Hudson Persch",
+            "Prof. Dr. Wendell Fiori"
+        ];
+
+        function generateId() {
+            return 'chip-' + Date.now() + '-' + Math.floor(Math.random() * 10000);
+        }
+
+        function renderDisciplines(filterType) {
+            const discContainer = document.getElementById('disciplines-container');
+            discContainer.innerHTML = '';
+            
+            // Loop vai até 10 para os dez períodos do curso de Direito
+            for (let i = 1; i <= 10; i++) {
+                if (filterType === 'impar' && i % 2 === 0) continue;
+                if (filterType === 'par' && i % 2 !== 0) continue;
+
+                const group = disciplinas.filter(d => d.p === i);
+                if (group.length > 0) {
+                    const header = document.createElement('div');
+                    header.className = 'period-group';
+                    header.textContent = i + 'º Período';
+                    discContainer.appendChild(header);
+
+                    group.forEach(d => {
+                        const el = document.createElement('div');
+                        el.className = 'draggable-item discipline';
+                        el.draggable = true;
+                        el.innerHTML = `<i data-lucide="book-open"></i> <span>${d.nome} (${d.ch}h)</span>`;
+                        el.dataset.type = 'discipline';
+                        el.dataset.name = d.nome;
+                        el.dataset.ch = d.ch;
+                        el.ondragstart = dragStartFromSidebar;
+                        discContainer.appendChild(el);
+                    });
+                }
+            }
+            lucide.createIcons();
+        }
+
+        const teachContainer = document.getElementById('teachers-container');
+        professores.forEach(t => {
+            const el = document.createElement('div');
+            el.className = 'draggable-item teacher';
+            el.draggable = true;
+            el.innerHTML = `<i data-lucide="user"></i> <span>${t}</span>`;
+            el.dataset.type = 'teacher';
+            el.dataset.name = t;
+            el.dataset.ch = 0; 
+            el.ondragstart = dragStartFromSidebar;
+            teachContainer.appendChild(el);
+        });
+
+        const gridBody = document.getElementById('grid-body');
+        // Loop da grid vai até 10 para os dez períodos do curso de Direito
+        for (let i = 1; i <= 10; i++) {
+            const tr = document.createElement('tr');
+            tr.dataset.period = i;
+            tr.innerHTML = `<td>${i}º Período</td>`;
+            for(let j=0; j<6; j++){
+                const td = document.createElement('td');
+                td.className = 'schedule-cell';
+                td.ondrop = drop;
+                td.ondragover = allowDrop;
+                td.ondragenter = dragEnter;
+                td.ondragleave = dragLeave;
+                tr.appendChild(td);
+            }
+            gridBody.appendChild(tr);
+        }
+
+        function filterSemester(type) {
+            document.querySelectorAll('.btn-tab').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + type).classList.add('active');
+
+            renderDisciplines(type);
+
+            const rows = document.querySelectorAll('#grid-body tr');
+            rows.forEach(row => {
+                const p = parseInt(row.dataset.period);
+                if (type === 'impar' && p % 2 === 0) {
+                    row.style.display = 'none';
+                } else if (type === 'par' && p % 2 !== 0) {
+                    row.style.display = 'none';
+                } else {
+                    row.style.display = '';
+                }
+            });
+        }
+
+        function createChipElement(type, name, ch, id = null) {
+            const chip = document.createElement('div');
+            chip.className = `chip ${type}`;
+            chip.dataset.type = type;
+            chip.dataset.name = name;
+            chip.dataset.ch = ch;
+            chip.id = id || generateId();
+            chip.draggable = true;
+            
+            chip.ondragstart = function(e) {
+                e.dataTransfer.setData("sourceId", this.id);
+            };
+            
+            let label = name;
+            if(type === 'discipline') label += ` (${ch}h)`;
+
+            chip.innerHTML = `${label} <span class="chip-close" onclick="this.parentElement.remove(); updateSummary(); saveToLocalStorage();" title="Remover">${closeIconSvg}</span>`;
+            return chip;
+        }
+
+        function dragStartFromSidebar(ev) {
+            const target = ev.target.closest('.draggable-item') || ev.target;
+            ev.dataTransfer.setData("type", target.dataset.type);
+            ev.dataTransfer.setData("name", target.dataset.name);
+            ev.dataTransfer.setData("ch", target.dataset.ch);
+            ev.dataTransfer.setData("isNew", "true");
+        }
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function dragEnter(ev) {
+            ev.preventDefault();
+            if(ev.target.classList.contains('schedule-cell')) {
+                ev.target.classList.add('dragover');
+            }
+        }
+
+        function dragLeave(ev) {
+            if(ev.target.classList.contains('schedule-cell')) {
+                ev.target.classList.remove('dragover');
+            }
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            let target = ev.target;
+            
+            while(target && !target.classList.contains('schedule-cell')) {
+                target = target.parentElement;
+            }
+
+            if(target && target.classList.contains('schedule-cell')) {
+                target.classList.remove('dragover');
+
+                const sourceId = ev.dataTransfer.getData("sourceId");
+
+                if (sourceId) {
+                    const existingChip = document.getElementById(sourceId);
+                    if (existingChip) {
+                        target.appendChild(existingChip);
+                    }
+                } else if (ev.dataTransfer.getData("isNew") === "true") {
+                    const type = ev.dataTransfer.getData("type");
+                    const name = ev.dataTransfer.getData("name");
+                    const ch = ev.dataTransfer.getData("ch");
+
+                    const newChip = createChipElement(type, name, ch);
+                    target.appendChild(newChip);
+                }
+
+                updateSummary();
+                saveToLocalStorage();
+            }
+        }
+
+        function importDisciplines() {
+            const rows = document.querySelectorAll('#grid-body tr');
+            
+            rows.forEach(row => {
+                if (row.style.display !== 'none') {
+                    const period = parseInt(row.dataset.period);
+                    const cells = Array.from(row.querySelectorAll('.schedule-cell'));
+                    
+                    const group = disciplinas.filter(d => d.p === period);
+                    let cellIndex = 0; 
+                    
+                    group.forEach(d => {
+                        let alreadyExists = false;
+                        cells.forEach(c => {
+                            const chips = c.querySelectorAll('.chip.discipline');
+                            chips.forEach(chip => {
+                                if (chip.dataset.name === d.nome) alreadyExists = true;
+                            });
+                        });
+                        
+                        if (!alreadyExists) {
+                            const targetCell = cells[cellIndex % cells.length];
+                            const newChip = createChipElement('discipline', d.nome, d.ch);
+                            targetCell.appendChild(newChip);
+                            cellIndex++; 
+                        }
+                    });
+                }
+            });
+            updateSummary();
+            saveToLocalStorage();
+        }
+
+        function clearGrid() {
+            if(!confirm("Tem certeza que deseja limpar as células das linhas que estão sendo exibidas?")) return;
+            
+            const rows = document.querySelectorAll('#grid-body tr');
+            rows.forEach(row => {
+                if (row.style.display !== 'none') {
+                    const cells = row.querySelectorAll('.schedule-cell');
+                    cells.forEach(cell => cell.innerHTML = '');
+                }
+            });
+            
+            updateSummary();
+            saveToLocalStorage();
+        }
+
+        function updateSummary() {
+            const summary = {}; 
+
+            document.querySelectorAll('.schedule-cell').forEach(cell => {
+                const discChips = Array.from(cell.querySelectorAll('.chip.discipline'));
+                const teachChips = Array.from(cell.querySelectorAll('.chip.teacher'));
+
+                teachChips.forEach(tChip => {
+                    const tName = tChip.dataset.name;
+                    if (!summary[tName]) summary[tName] = { discMap: new Map() };
+
+                    discChips.forEach(dChip => {
+                        const dName = dChip.dataset.name;
+                        const dCh = parseInt(dChip.dataset.ch);
+                        summary[tName].discMap.set(dName, dCh);
+                    });
+                });
+            });
+
+            const tbody = document.getElementById('summary-body');
+            tbody.innerHTML = '';
+
+            let hasEntries = false;
+
+            for (const [tName, data] of Object.entries(summary)) {
+                let totalCh = 0;
+                let dNames = [];
+                for (const [dName, ch] of data.discMap.entries()) {
+                    totalCh += ch;
+                    dNames.push(`&bull; ${dName} (${ch}h)`);
+                }
+                
+                if (totalCh > 0) {
+                    hasEntries = true;
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><strong>${tName}</strong></td>
+                        <td>${dNames.join('<br>')}</td>
+                        <td><strong>${totalCh}h</strong></td>
+                    `;
+                    tbody.appendChild(tr);
+                }
+            }
+
+            if (!hasEntries) {
+                tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color: var(--text-muted);">Nenhum docente com disciplinas alocadas.</td></tr>';
+            }
+        }
+
+        function exportToExcel() {
+            if (typeof XLSX === 'undefined') {
+                alert('A biblioteca de exportação do Excel ainda está carregando ou falhou. Verifique sua conexão.');
+                return;
+            }
+
+            const wb = XLSX.utils.book_new();
+
+            const ws_data_schedule = [
+                ["Período", "2ª feira", "3ª feira", "4ª feira", "5ª feira", "6ª feira", "Sábado"]
+            ];
+
+            const rows = document.querySelectorAll('#grid-body tr');
+            rows.forEach(row => {
+                if (row.style.display !== 'none') {
+                    const rowData = [];
+                    rowData.push(row.querySelector('td').innerText.trim());
+                    
+                    const cells = row.querySelectorAll('.schedule-cell');
+                    cells.forEach(cell => {
+                        const discs = Array.from(cell.querySelectorAll('.chip.discipline')).map(c => c.dataset.name);
+                        const profs = Array.from(cell.querySelectorAll('.chip.teacher')).map(c => c.dataset.name);
+                        
+                        let cellText = "";
+                        if (discs.length > 0) cellText += discs.join(" | ") + "\n";
+                        if (profs.length > 0) cellText += "Docentes: " + profs.join(" | ");
+                        
+                        rowData.push(cellText.trim());
+                    });
+                    ws_data_schedule.push(rowData);
+                }
+            });
+
+            const ws_data_summary = [
+                ["Docente", "Disciplinas Alocadas", "Carga Horária Total (CH)"]
+            ];
+            
+            const summaryRows = document.querySelectorAll('#summary-body tr');
+            summaryRows.forEach(row => {
+                const cols = row.querySelectorAll('td');
+                if (cols.length === 3 && !cols[0].hasAttribute('colspan')) { 
+                    const docente = cols[0].innerText.trim();
+                    const disciplinas = cols[1].innerText.replace(/• /g, '').trim().split('\n').join(', ');
+                    const ch = cols[2].innerText.trim();
+                    ws_data_summary.push([docente, disciplinas, ch]);
+                }
+            });
+
+            const ws_schedule = XLSX.utils.aoa_to_sheet(ws_data_schedule);
+            const ws_summary = XLSX.utils.aoa_to_sheet(ws_data_summary);
+            
+            XLSX.utils.book_append_sheet(wb, ws_schedule, "Grade de Horários");
+            
+            if (ws_data_summary.length > 1) {
+                XLSX.utils.book_append_sheet(wb, ws_summary, "Resumo Docentes");
+            }
+
+            XLSX.writeFile(wb, "Horarios_Direito_UNIR.xlsx");
+        }
+
+        let saveTimeout;
+        
+        function saveToLocalStorage() {
+            const gridData = [];
+            const rows = document.querySelectorAll('#grid-body tr');
+            
+            rows.forEach(row => {
+                const rowData = [];
+                const cells = row.querySelectorAll('.schedule-cell');
+                cells.forEach(cell => {
+                    const cellData = [];
+                    cell.querySelectorAll('.chip').forEach(chip => {
+                        cellData.push({
+                            type: chip.dataset.type,
+                            name: chip.dataset.name,
+                            ch: chip.dataset.ch,
+                            id: chip.id
+                        });
+                    });
+                    rowData.push(cellData);
+                });
+                gridData.push(rowData);
+            });
+            
+            localStorage.setItem('direitoScheduleState', JSON.stringify(gridData));
+            
+            const msg = document.getElementById('save-msg');
+            msg.style.opacity = 1;
+            
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(() => {
+                msg.style.opacity = 0;
+            }, 2000);
+        }
+
+        function loadFromLocalStorage() {
+            const saved = localStorage.getItem('direitoScheduleState');
+            if (saved) {
+                applyStateData(saved);
+            }
+        }
+        
+        function applyStateData(jsonString) {
+            try {
+                const gridData = JSON.parse(jsonString);
+                const rows = document.querySelectorAll('#grid-body tr');
+                
+                gridData.forEach((rowData, rowIndex) => {
+                    if(rows[rowIndex]) {
+                        const cells = rows[rowIndex].querySelectorAll('.schedule-cell');
+                        rowData.forEach((cellData, cellIndex) => {
+                            if(cells[cellIndex]) {
+                                cells[cellIndex].innerHTML = ''; 
+                                cellData.forEach(chipData => {
+                                    const newChip = createChipElement(chipData.type, chipData.name, chipData.ch, chipData.id);
+                                    cells[cellIndex].appendChild(newChip);
+                                });
+                            }
+                        });
+                    }
+                });
+                updateSummary();
+            } catch (e) {
+                alert("Erro ao carregar dados do arquivo. Certifique-se que o arquivo é válido.");
+            }
+        }
+
+        function exportProgress() {
+            saveToLocalStorage();
+            const data = localStorage.getItem('direitoScheduleState');
+            if (!data || data === "[[],[],[],[],[],[],[],[],[],[]]") {
+                alert("O quadro está vazio. Não há progresso para salvar.");
+                return;
+            }
+            const blob = new Blob([data], {type: "application/json"});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "progresso_horario_direito.json";
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importProgress() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = e => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = event => {
+                    const json = event.target.result;
+                    applyStateData(json);
+                    localStorage.setItem('direitoScheduleState', json);
+                    alert("Progresso carregado com sucesso!");
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        function clearMemory() {
+            if(confirm("Isso apagará o horário de forma permanente da tela e da memória local. Deseja continuar?")) {
+                localStorage.removeItem('direitoScheduleState');
+                
+                const cells = document.querySelectorAll('.schedule-cell');
+                cells.forEach(cell => cell.innerHTML = '');
+                
+                updateSummary();
+                
+                const msg = document.getElementById('save-msg');
+                msg.innerHTML = '<i data-lucide="alert-circle"></i> Memória apagada!';
+                msg.style.color = "var(--text-rose)";
+                msg.style.background = "var(--pastel-rose)";
+                msg.style.opacity = 1;
+                lucide.createIcons();
+                
+                setTimeout(() => {
+                    msg.style.opacity = 0;
+                    setTimeout(() => {
+                        msg.innerHTML = '<i data-lucide="check-circle-2"></i> Salvo localmente';
+                        msg.style.color = "var(--text-mint)";
+                        msg.style.background = "var(--pastel-mint)";
+                        lucide.createIcons();
+                    }, 500);
+                }, 2000);
+            }
+        }
+
+        window.onload = function() {
+            renderDisciplines('all');
+            loadFromLocalStorage();
+        };
+    </script>
+</body>
+</html>
